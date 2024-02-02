@@ -1,6 +1,7 @@
 import Link from "next/link";
 import EmailPasswordSignInForm from "./components/EmailPasswordSignInForm";
 import MagicLinkSignInForm from "./components/MagicLinkSignInForm";
+import OAuthSignInProviders from "./components/OAuthSignInProviders";
 
 export const metadata = {
   title: "Sign In",
@@ -9,8 +10,11 @@ export const metadata = {
 function SignInPage() {
   return (
     <div className="flex flex-col space-y-4 w-full">
-      {/* <EmailPasswordSignInForm /> */}
+      <EmailPasswordSignInForm />
+      <hr />
       <MagicLinkSignInForm />
+      <hr />
+      <OAuthSignInProviders />
       <div className="text-sm">
         <span>Don&apos;t have an account yet?</span>{" "}
         <Link className="underline" href="/auth/sign-up">
