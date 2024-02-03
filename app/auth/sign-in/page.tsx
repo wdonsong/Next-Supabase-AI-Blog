@@ -11,10 +11,10 @@ function SignInPage() {
   return (
     <div className="flex flex-col space-y-4 w-full">
       <EmailPasswordSignInForm />
-      <hr />
+      {/* <hr />
       <MagicLinkSignInForm />
       <hr />
-      <OAuthSignInProviders />
+      <OAuthSignInProviders /> */}
       <div className="text-sm">
         <span>Don&apos;t have an account yet?</span>{" "}
         <Link className="underline" href="/auth/sign-up">
