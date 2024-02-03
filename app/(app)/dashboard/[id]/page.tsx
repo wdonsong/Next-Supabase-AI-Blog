@@ -1,5 +1,7 @@
 import { use } from "react";
-
+import Link from "next/link";
+import { PencilIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { fetchPostByUid } from "@/lib/queries/posts";
 import getSupabaseServerComponentClient from "@/lib/supabase/server-component-client";
 
@@ -14,7 +16,16 @@ function PostPage({ params }: PostPageParams) {
 
   return (
     <div className="flex flex-col space-y-4 max-w-3xl mx-auto pb-16">
-      <h1 className="text-2xl font-semibold">{post.title}</h1>
+      <div className="flex justify-between">
+        <h1 className="text-2xl font-semibold">{post.title}</h1>
+
+        <div className="flex space-x-2.5">
+          <Button variant={"link"} className="flex space-x-2">
+            <PencilIcon className="w-3 h-3" />
+            <Link href={`/dashboard/${params.id}/edit`}>Edit</Link>
+          </Button>
+        </div>
+      </div>
 
       <h2 className="text-lg font-medium">{post.description}</h2>
 

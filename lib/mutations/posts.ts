@@ -22,3 +22,26 @@ export async function insertPost(client: Client, params: InsertPostParams) {
 
   return data;
 }
+
+interface UpdatePostParams {
+  title: string;
+  content: string;
+  description: string | undefined;
+  uid: string;
+}
+
+export async function updatePost(
+  client: Client,
+  { uid, ...params }: UpdatePostParams
+) {
+  const { data, error } = await client
+    .from("posts")
+    .update(params)
+    .match({ uuid: uid });
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}

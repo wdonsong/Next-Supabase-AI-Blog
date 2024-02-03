@@ -5,7 +5,7 @@ import { ChatCompletions } from "@azure/openai";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import getSupabaseServerActionClient from "@/lib/supabase/action-client";
-import { insertPost } from "@/lib/mutations/posts";
+import { insertPost, updatePost } from "@/lib/mutations/posts";
 
 interface GeneratePostParams {
   title: string;
@@ -71,4 +71,26 @@ function getResponseContent(response: ChatCompletions) {
   return (response.choices ?? []).reduce((acc: string, choice) => {
     return acc + (choice.message?.content ?? "");
   }, "");
+}
+
+export async function updatePostAction(formData: FormData) {
+  const title = formData.get("title") as string;
+  const description = formData.get("description") as string | undefined;
+  const content = formData.get("content") as string;
+  const uid = formData.get("uid") as string;
+
+  const client = getSupabaseServerActionClient();
+
+  await updatePost(client, {
+    title,
+    content,
+    description,
+    uid,
+  });
+
+  const postPath = `/dashboard/${uid}`;
+
+  revalidatePath(postPath, "page");
+
+  return redirect(postPath);
 }
