@@ -5,7 +5,7 @@ import { ChatCompletions } from "@azure/openai";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import getSupabaseServerActionClient from "@/lib/supabase/action-client";
-import { insertPost, updatePost } from "@/lib/mutations/posts";
+import { insertPost, updatePost, deletePost } from "@/lib/mutations/posts";
 
 interface GeneratePostParams {
   title: string;
@@ -93,4 +93,15 @@ export async function updatePostAction(formData: FormData) {
   revalidatePath(postPath, "page");
 
   return redirect(postPath);
+}
+
+export async function deletePostAction(uid: string) {
+  const client = getSupabaseServerActionClient();
+  const path = `/dashboard`;
+
+  await deletePost(client, uid);
+
+  revalidatePath(path, "page");
+
+  return redirect(path);
 }

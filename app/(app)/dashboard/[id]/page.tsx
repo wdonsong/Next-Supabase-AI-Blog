@@ -4,6 +4,7 @@ import { PencilIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { fetchPostByUid } from "@/lib/queries/posts";
 import getSupabaseServerComponentClient from "@/lib/supabase/server-component-client";
+import DeletePostButton from "./components/DeletePostButton";
 
 interface PostPageParams {
   params: {
@@ -24,6 +25,7 @@ function PostPage({ params }: PostPageParams) {
             <PencilIcon className="w-3 h-3" />
             <Link href={`/dashboard/${params.id}/edit`}>Edit</Link>
           </Button>
+          <DeletePostButton uid={params.id} />
         </div>
       </div>
 

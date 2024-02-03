@@ -45,3 +45,13 @@ export async function updatePost(
 
   return data;
 }
+
+export async function deletePost(client: Client, uuid: string) {
+  const { data, error } = await client.from("posts").delete().match({ uuid });
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
